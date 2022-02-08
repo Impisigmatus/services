@@ -4,10 +4,11 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-  workflow_dispatch:
+  # workflow_dispatch:
 
 jobs:
-  build:
+  # Сборка для 32 битных систем
+  build_i386:
     runs-on: ubuntu-latest
     steps:
       - name: Install Golang
@@ -24,12 +25,34 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Build_i386
+      - name: Build
         run: |
           cd service_test/
           go mod vendor
           CGO_ENABLED=1 GOOS=linux GOARCH=386 go build -o ../build/service_test main.go
       - uses: actions/upload-artifact@v2
         with:
-          name: services
+          name: services_i386
+          path: build/
+
+  # Сборка для 64 битных систем
+  build_x64:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Golang
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17.x
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build
+        run: |
+          cd service_test/
+          go mod vendor
+          CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -o ../build/service_test main.go
+      - uses: actions/upload-artifact@v2
+        with:
+          name: services_x64
           path: build/
