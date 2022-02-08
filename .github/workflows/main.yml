@@ -15,8 +15,7 @@ jobs:
       - name: Build
         run: |
           cd service_test/
-          echo "fail"
-      #     dpkg sudo dpkg --add-architecture i386
+          dpkg sudo dpkg --add-architecture i386
       #     apt update
       #     apt install linux-libc-dev:i386
       #     CGO_ENABLED=1 GOOS=linux GOARCH=386 go build -o ../build/service_test main.go
