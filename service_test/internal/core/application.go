@@ -1,6 +1,9 @@
 package core
 
-import "github.com/sirupsen/logrus"
+import (
+	"github.com/Impisigmatus/services/service_test/docs"
+	"github.com/sirupsen/logrus"
+)
 
 type Application struct{}
 
@@ -10,4 +13,8 @@ func NewApplication() *Application {
 
 func (app *Application) Ping() {
 	logrus.Info("Ping")
+}
+
+func (app *Application) Info() []byte {
+	return docs.README
 }

@@ -27,6 +27,7 @@ func NewService(app *Application, port uint64) *Service {
 
 	transport := NewTransport(app)
 	mux.GET("/api/ping", transport.Ping)
+	mux.GET("/api/info", transport.Info)
 
 	return &Service{
 		server: &http.Server{
