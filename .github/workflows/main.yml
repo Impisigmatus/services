@@ -16,6 +16,7 @@ jobs:
       - name: Build
         run: |
           cd service_test/
+          echo "fail"
       #     dpkg sudo dpkg --add-architecture i386
       #     apt update
       #     apt install linux-libc-dev:i386
