@@ -4,11 +4,10 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-  # workflow_dispatch:
 
 jobs:
-  # Сборка для 32 битных систем
-  build_i386:
+  # Сборка service_test для 32 битных систем
+  build_service_test_i386:
     runs-on: ubuntu-latest
     steps:
       - name: Install Golang
@@ -35,8 +34,8 @@ jobs:
           name: services_i386
           path: build/
 
-  # Сборка для 64 битных систем
-  build_x64:
+  # Сборка service_test для 64 битных систем
+  build_service_test_x64:
     runs-on: ubuntu-latest
     steps:
       - name: Install Golang
