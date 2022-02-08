@@ -6,8 +6,8 @@ on:
     branches: [ master ]
 
 jobs:
-  # Сборка service_test для 32 битных систем
-  build_service_test_i386:
+  # service_test для 32 битных систем
+  service_test_i386:
     runs-on: ubuntu-latest
     steps:
       - name: Install Golang
@@ -29,13 +29,16 @@ jobs:
           cd service_test/
           go mod vendor
           CGO_ENABLED=1 GOOS=linux GOARCH=386 go build -o ../build/service_test main.go
+
+      - name: Deploy
+        run: echo "pack to docker container"
       - uses: actions/upload-artifact@v2
         with:
-          name: services_i386
-          path: build/
+          name: containers
+          path: containers/
 
-  # Сборка service_test для 64 битных систем
-  build_service_test_x64:
+  # service_test для 64 битных систем
+  service_test_x64:
     runs-on: ubuntu-latest
     steps:
       - name: Install Golang
@@ -51,7 +54,3 @@ jobs:
           cd service_test/
           go mod vendor
           CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -o ../build/service_test main.go
-      - uses: actions/upload-artifact@v2
-        with:
-          name: services_x64
-          path: build/
