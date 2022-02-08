@@ -16,9 +16,15 @@ jobs:
       - name: Build
         run: |
           cd service_test/
+
           sudo dpkg --add-architecture i386
           sudo apt update
           sudo apt install linux-libc-dev:i386
+
+          pkg=$(curl -s https://go.dev/dl/ | grep -E -o "go[0-9.]{3,}linux-amd64.tar.gz" | head -n1)
+          echo $pkg
+          wget https://golang.org/dl/$pkg
+          sudo tar -C /usr/local -xzf $pkg
       #     CGO_ENABLED=1 GOOS=linux GOARCH=386 go build -o ../build/service_test main.go
       # - uses: actions/upload-artifact@v2
       #   with:
