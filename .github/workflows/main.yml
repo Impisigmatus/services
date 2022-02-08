@@ -10,10 +10,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
       - uses: actions/checkout@v2
-      - name: first_joba
-        run: echo "Hello, world!"
-      - name: second_joba
+
+      - name: Build
         run: |
-          echo "Hello, world!"
-          echo "Hello, world!"
+          cd service_test/
+          dpkg sudo dpkg --add-architecture i386
+          apt update
+          apt install linux-libc-dev:i386
+          CGO_ENABLED=1 GOOS=linux GOARCH=386 go build -o ../build/service_test main.go
+      - uses: actions/upload-artifact@v2
+        with:
+          name: services
+          path: build/
